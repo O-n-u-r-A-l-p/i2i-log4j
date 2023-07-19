@@ -1,0 +1,49 @@
+<Configuration>
+    <Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss} [%t] %-5level %logger{36} - %msg%n" />
+        </Console>
+        
+        <RollingFile name="infoLogs" fileName="./logs/info.Log" filePattern="./logs/info-%d{dd-MM-yyyy}.Log">
+            <PatternLayout pattern="%d{dd:MM:yyyy} [%t] %-5level %logger{36} - %msg%n" />
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+                <SizeBasedTriggeringPolicy size="1 MB" />
+            </Policies>
+            <Filters>
+				<ThresholdFilter level="error" onMatch="DENY" onMismatch="NEUTRAL" />
+				<ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY" />
+			</Filters>
+        </RollingFile>
+
+        <RollingFile name="debugLogs" fileName="./logs/debug.Log" filePattern="./logs/debug-%d{dd-MM-yyyy}.Log">
+            <PatternLayout pattern="%d{dd:MM:yyyy} [%t] %-5level %logger{36} - %msg%n" />
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+                <SizeBasedTriggeringPolicy size="1 MB" />
+            </Policies>
+            <Filters>
+                <ThresholdFilter level="info" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="error" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="debug" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+        </RollingFile>
+
+        <RollingFile name="errorLogs" fileName="./logs/error.Log" filePattern="./logs/error-%d{dd-MM-yyyy}.Log">
+            <PatternLayout pattern="%d{dd:MM:yyyy} [%t] %-5level %logger{36} - %msg%n" />
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+                <SizeBasedTriggeringPolicy size="1 MB" />
+            </Policies>
+        </RollingFile>
+    </Appenders>
+    
+    <Loggers>
+        <Root level ="all">
+            <AppenderRef ref="Console" />
+            <AppenderRef ref="infoLogs" level="info" />
+            <AppenderRef ref="debugLogs" level="debug" />
+            <AppenderRef ref="errorLogs" level="error" />
+        </Root>
+    </Loggers>
+</Configuration>
