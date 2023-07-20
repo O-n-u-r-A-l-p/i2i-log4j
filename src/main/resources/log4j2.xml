@@ -11,9 +11,9 @@
                 <SizeBasedTriggeringPolicy size="1 MB" />
             </Policies>
             <Filters>
-				<ThresholdFilter level="error" onMatch="DENY" onMismatch="NEUTRAL" />
-				<ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY" />
-			</Filters>
+		<ThresholdFilter level="error" onMatch="DENY" onMismatch="NEUTRAL" />
+		<ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY" />
+	    </Filters>
         </RollingFile>
 
         <RollingFile name="debugLogs" fileName="./logs/debug.Log" filePattern="./logs/debug-%d{dd-MM-yyyy}.Log">
